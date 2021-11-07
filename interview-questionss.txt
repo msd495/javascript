@@ -1,11 +1,69 @@
 1).How would you create private variables in javascript?
-2).closure in js?provide exmaples
+Ans). class Animal{
+    constructor(name){
+        let _name=name;
+        this.getName=function(){
+            return _name;
+         }
+        this.setName=function(){
+            this._name=name;
+        }
+    }
+}
+
+2).closure in js?provide exmaples?
+Ans).Closures is a group of function bundled together such that inner function has the access to variables of it's
+lexical environment.
+
+Ans).
+<script>
+var updateClickCount = (function(){
+    var counter = 0;
+
+    return function(){
+        ++counter;
+        document.getElementById("spnCount").innerHTML = counter;
+    }
+})();
+</script>
+
+<html>
+<button onclick="updateClickCount()">click me</button>
+<div> you've clicked
+    <span id="spnCount"> 0 </span> times!
+</div>
+</html>
+
+
 3).implement multiply(5)(6) in javascript?
+function multiply(a){
+
+    return function B(b){
+            return a*b;
+        }
+
+}
+
+Q).Singleton in javscript.
+Ans).class MyClass {
+       constructor() {
+         if (MyClass._instance) {
+           throw new Error("Singleton classes can't be instantiated more than once.")
+         }
+         MyClass._instance = this;
+
+         // ... Your rest of the constructor code goes after this
+       }
+     }
+   In this example we are simply assigning class variable the instance , and we put if condition to check if that class variable
+   is already defined.
+
+multiply(5)(6)
 4).output of following code :
 (function() {
   var a = b = 5;
 })();
-
+//a will be undefined and b=5 as it is defined like var a=b; b=5(there is no var over here ,so it becomes global)
 5).output of following code
 var k = 1;
    if (1) {
@@ -15,36 +73,118 @@ var k = 1;
    console.log(k);
 
 6).How would you use a closure to create a private counter?
+Ans). function counter(){
+        var _counter=0;
+
+        return {
+            add:function(increment){_counter+=incerement}
+            retireve:function(){return 'The counter is currently at '+_counter}
+        }
+
+    }
 7).Given two strings, return true if they are anagrams of one another
+ans). if a.length != b.lengthh{
+        return False
+    }
+    if (a.split('').sort().join() == b.split('').sort().join()){
+        return True
+    }
 8).print fizzbuzz till 100
-9).Implement enqueue and deque using two stacks
+9).Implement enqueue and deque using two stacks?
 10).empty an array in javascript?
+ans).make its length zero.
 11).check if object is array or not?
+Ans).Array.isArray(obj)
 12).explain callback and provide example for it
-13).Flatten an array
+Ans).A callback is a function passed as an argument to another function.
+13).Flatten an array/dictionary?
+Ans).var merged = [].concat.apply([], arr);
 14).When you run into Javascript performance issues, what steps do you take?
+Ans).Caching:Session storage/caching
+Remove unused javascript
+Defer function that is not needed at time of page load.:once the page loads we can load them
+Avoid memory leaks
+Web workers for code which are cpu intensive and takes time.
+Prioritize access to local variables as they can be accessed quickly without moving on top of scope
+Avoid using Global variables:
 15).Implement a loading bar that animates from 0 to 100% in 3 seconds
 16).Start loading bar animation upon a button click
 17).Queue multiple loading bars if the button is clicked more than once. Loading bar N starts animating with loading bar N-1 is done animating.
 18).throttling in javascript with example?
+Ans).throttling is used to call function after every millisecond,except on the first click that is executed immediately.
 19)bubbling in javascript?
+Ans).when we click on child element and event for parent event gets called , this is known as event bubbling in jaavscript.
 20).what is context in react?
+Ans).Avoid prop drilling in react.
 21).minification and bundling in react app?
+Using webpack or browserify.
 22).Debouncing in javascript ?
+Ans).Debouncing executes the function only after some colling period,while throttling executes it at regular inetrval.
+Implemented using setTimeOutFunction
 23).currying in js?
+Ans).currying is a transformation of function which converts f(a,b) to f(a)(b).
 24).implement your own promise?
+Ans).const promise = new Promise((resolve, reject) => {
+
+     })
+     promise.then((value)=>{
+
+     }).catch(()=>{
+
+     }).finally(()=>{
+
+     })
 25).How Position Absolute works in css. Align all items of a div in center.
 26).bind, call and apply. Implement your own bind, call and apply.
-27).map, reduce. Implement your own map
+Ans).function greet() {
+       return `Hello ${this.name}`
+     }
+     const person = {
+       name: "Lawrence Eagles"
+     };
+     greet.call(person);
+     const greet2 = greet.bind(person)
+     greet2()
+     apply takes argument in a list
+     call method takes argument separately.
+     bind is use to create copy of object and we can call that again.
+27).map, reduce. Implement your own map.
+Ans).var arr = [10, 20, 30, 40, 50]; // initialise an array and assign to arr
+     var val = arr.reduce((prev, curr) => prev + curr);
 28).CORS, CSRF tokens and XSS security hacks.
 29).print each item of an array with a gap of 5ms. What is so special about arrow functions What happens when you do var = a = b = 5 . Implement Currying.
+Ans).const arr=[1,2,3,4];
+     offset=0
+     for(let i=0;i<arr.length;i++){
+         setTimeout(function(){
+            console.log(i)
+         },3000+offset);
+         offset+=3000;
+     }
 30).Given a JS object, obj = {a: 1, getA: function() { return this.a } }
     var get = obj.getA;
     console.log(get());
     what will it print? How will you prevent it to fit undefined?
 31).setTimeout and setInterval ? how they work?Implement your own?
+Ans).SetTimeOut
+function interval(cb, ms){
+       var a = {
+         clear : function(){
+           clearTimeout(a.timer)
+         }
+       };
+       (function run(){
+         cb();
+         a.timer = setTimeout(run, ms);
+       })();
+
+       return a;
+     }
 32).what happens if setTimeout is written bfore while(1)?
-33).oop concept in js
+Ans).While loop will be keep running.
+33).oop concept in js?
+Ans).Object.create() method creates a new object, using an existing object as the prototype of the newly created object.
+
 34).permutation of string?
 35).shuffle array?
 36).console.log(this)?
@@ -73,6 +213,11 @@ var output = (function(){
 
    console.log(output);
  47).Object.create and object.assign difference
+ Ans).Object.create creates a new object with the specified [[Prototype]],
+ and Object.assign assigns the properties directly on the specified object
+ Prototypical chain of create and assign:
+ obj1 --> target1 -->  Object.prototype --> null
+ obj2 -------------->  Object.prototype --> null
  48).var trees = ["xyz","xxxx","test","ryan","apple"];
      delete trees[3];
 
@@ -80,26 +225,31 @@ var output = (function(){
  49).output of
  var z = 1, y = z = typeof y;
  console.log(y);
+ Ans).undefined
  50).var foo = function bar(){ return 12; };
      typeof bar();
+   Ans).
   51).make it work
+  var bar = function(){ return 12; };
+       typeof bar();
   52).differnce between function declaration and expression?
   53).Hoisting in javascript?
   54).output of :
   var salary = "1000$";
 
    (function () {
-       console.log("Original salary was " + salary);
+       console.log("Original salary was " + salary);--undefined
 
        var salary = "5000$";
 
-       console.log("My New Salary " + salary);
+       console.log("My New Salary " + salary);--50000$
   })();
   55).output of :
   function foo(){
     return foo;
   }
   new foo() instanceof foo;
+  new foo==foo is true
   56).Accidental global variable:
   function foo() {
     let a = b = 0;
@@ -107,7 +257,7 @@ var output = (function(){
     return a;
   }
 
-  foo();
+  foo();--1
   57).Eagle eye test:
   const length = 4;
   const numbers = [];
@@ -121,7 +271,7 @@ var output = (function(){
       console.log(i);
     }
     setTimeout(log, 100);
-  }
+  }--Ans 3(three time)
   59).github questions).https://github.com/lydiahallie/javascript-questions
   60).https://github.com/rohan-paul/Awesome-JavaScript-Interviews
   61).https://www.freecodecamp.org/news/systems-design-for-interviews/
@@ -130,10 +280,52 @@ var output = (function(){
   64).create a tree and find its diameter?
   65).Find longest common prefix in array?
   66).prototype and proto in js?
+  Ans)the prototype is a property of a class constructor, while the __proto__ is a property of a class instance.
   67).scope chain in js?
   Implementation questions
   1).deepMerge ?Iterator in javascript?Object destructuring and nested object destructuring?implement json to csv
+  Ans).
+  // using spread ...
+  const person = {
+      firstName: 'John',
+      lastName: 'Doe'
+  };
+  let p1 = {
+      ...person
+  };----shallow copy in case of object.deep copy for top in case of array and shallow copy for nested.
+
+  // using  Object.assign() method
+  let p2 = Object.assign({}, person);--shallow copy --original and shallow are still connected
+
+  // using JSON
+  let p3 = JSON.parse(JSON.stringify(person));--deep copy that means original and new are disconnected
   Array tricks: https://www.30secondsofcode.org/c/js-array-tricks/p/1
+  68).what does JSON.stringify do ?JSON.parse(JSON.stringify(onj))
+  69).print maximum length of character between two identical chars in string.
+  70).String and array all the methods
+  71).generators in javascript:
+  Genarator returns a special type of iterator called generator,generator executes until yeild is there.and consumed till next is there
+  They are defined with function*
+  72).how to lock object in javascript?
+  Ans).Object.freeze --u cannot change anything in that
+  73).promise ,promise.all,print successful promises:
+  promise.all is resolved when all the promises are resolved, if any of them fails it throws the error.
+  70).// TODO:// implement a way to create a prototype chain// of leopard -> lynx -> cat
+  // leopard prototype must have ONLY a hiss method//
+  //lynx prototype must have ONLY a purr method
+  // cat prototype must have ONLY a meow methodconst felix = null
+  //TODO replace null with instantiation of a catfelix.meow()
+  // prints Felix the cat: meowfelix.purr()
+  // prints Felix the cat: prrrfelix.hiss()
+  // prints Felix the cat: hsss
+  // prototype checks, do not removeconst felixProto = Object.getPrototypeOf(felix)const felixProtoProto = Object.getPrototypeOf(felixProto)const felixProtoProtoProto = Object.getPrototypeOf(felixProtoProto)assert(Object.getOwnPropertyNames(felixProto).length, 1)assert(Object.getOwnPropertyNames(felixProtoProto).length, 1)assert(Object.getOwnPropertyNames(felixProtoProto).length, 1)assert(typeof felixProto.meow, 'function')assert(typeof felixProtoProto.purr, 'function')assert(typeof felixProtoProtoProto.hiss, 'function')console.log('prototype checks passed!')
+    71).Nullish coleasing in javascript.
+    72).what is jre in javscript?Components of it.
+    73).Implement stopwatch.
+    https://dmitripavlutin.com/react-useref-guide/
+    74)scss and css,css questions,html basic questions.
+    Q).Implement pub/sub model in javascript.
+
 
   React interview Questions
   _______________________________
@@ -141,66 +333,347 @@ var output = (function(){
   2).https://www.30secondsofcode.org/c/react-rendering/p/1
   3).https://www.30secondsofcode.org/react/t/hooks/p/1
   1. What are the advantages of using React?
+  Ans).to build SPA,responive and large scale application,working with virtual DOM,JSX,component based architecture.
   2. What is JSX?
+  Ans)JSX is html like syntax used by react , that allows html to co-exist with javascript/react.
+  Insted of putting javascript inside html,jsx allows us to put html inside javascript.
+  babel transforms html to javascript like <ul id="nav"> gets transformed to React.CreateElement("ul",{id:nav})
+  In short jsx is short way to call React.CreateElement
   3. What are the differences between functional and class components?
+  Ans).functional components:These are simple javascript functions
+  e.g: const functionalComponent = ()=>{
+    const [count,setCount] = useState(0);
+
+    const incrementCounter = ()=>{
+        setCount(count+1)
+    }
+    return (
+        <div>
+            <span>counter is {count}</span>
+            <button onClick={incrementCounter} />
+        </div>
+    )
+  }
+
+  Class Component :
+  class Car extends React.Component{
+        constructor(){
+            super();
+            this.state={
+                count:0
+            }
+            this.increase=this.increase.bind(this);
+        }
+        increase(){
+            this.setState(this.state.count+1)
+        }
+        render(){
+            return (
+                <h2>hello</h2>
+                <button onClick={this.increase} />
+            )
+        }
+  }
+    diiference:
+    1).functional component is js function that accepts props as argument and return react element
+    2).They dont have render method
+    3).They are stateless components as they simply accept data and display them in some form .
+    4).react lifecycle methods like componentDidMount cannot be used in functional components
+
+    Class component:
+    1).extends React.Component and create a render function which returns React element
+    2).It must have render method.
+    3).They are stateful components bcz they implement logic and state.
+    4).Lifecycle methods can be written inside class components.
+
   4. What is the virtual DOM? How does react use the virtual DOM to render the UI?
+  Ans).react creates a tree of custom object(like React.div , instead of modifying the actual DOM it modifies this
+  virtual DOM . Then when it renders the component , it uses virtual DOM to figure what needs to be done with the REAL DOM
+  to get two tree matches.virtual DOM is like blue print it contains all the details needed to construct the DOM,but because
+  it doesn't require all the heavy parts that go into real DOM, it can be created and changed much more easily.
   5. What are the differences between controlled and uncontrolled components?
+  Ans).Controlled Components is one that takes its current value through props and notifies changes through callbacks like onChange.
+  A parent component controls by handling the callback and managing its own state and passing new values as props to the controlled
+  components.
+  // Controlled:
+  <input type="text" value={value} onChange={handleChange} />
+  Uncontrolled Components:
+  These are components which stores their state internally , and you query a DOM using a ref to find its current value when you
+  need it.
+  // Uncontrolled:
+  <input type="text" defaultValue="foo" ref={inputRef} />
   6. What are the different lifecycle methods in React?
+  Ans).Lifecycle can be thought of as birth,growth and death.
+  Mounting:birth of your component
+  Update:Growth of your component.
+  Unmount:Death of your component.
+
+  Render method:most used in lifecycle method.Used in class based on component.It helps in rendering of your component to UI.
+  It happens during mounting and updating of your component.render is pure function.pure functions are those that donot have
+  any side effects and always returns the same output when same input is passed.That means setState cant be used.
+
+  Commonly used hooks:
+  1).ComponentDidMount:called as soon as component is mounted.Good Place to initiate api calls.setState is allowed ,
+  2).ComponentDidUpdate:called as soon as update happens,most common use of componentDidUpdate is updating the DOM in response to
+  prop or state change.
+  3).componentWillUnmount:called just before the component is destroyed and unmounted,If there are any cleanup actions that you
+  would need to do , this would be right spot.cannot modify the state in this lifecycle.Common cleanup activities performed
+  in this method include, clearing timers, cancelling api calls, or clearing any caches in storage.
+
   7. Explain Strict Mode in React.
-  8. How to prevent re-renders in React?
+  lets you write better react component.verifies that component follows some of the recommended practice.
+  verifies that deprectated methods are not used. <strictmode/>
+  8. How to prevent re-renders in React?--should component update in class component
+  React.memo.. Anytime react component state or prop changes,its going to be re-rendered.The react component that has changed,
+  will force any other children components to re render as well.
+  So to prevent multiple renders ,React.memo has to be used.We have to wrap react component into another function called React.memo.
+  const Greeting = React.memo(props => {
+    console.log("Greeting Comp render");
+    return <h1>Hi {props.name}!</h1>;
+  });
   9. Explain React state and props.
-  10. Explain React Hooks.
+  Ans).Props can be defined as passing data from component to component,basically from parent to child.
+  props hold immutable data.State handles mutable data that can change over time.
+  10. Explain React Hooks.(https://dev.to/abhisheknaiidu/10-react-hooks-explained-3ino)
   11. What are the different ways to style a React component?
-  12. Name a few techniques to optimize React app performance.
+  12. Name a few techniques to optimize React app performance.-useMemo,useCallback,useContext
+  Ans).Use memo to cache data for re-rendering
+  load only data which fits in the window,the next data are rendered as lists is scrolled.
+  use react.purecomponent--for class component. It shallowly compares the fields of previous props and state object with the
+   fields of next props and React.memo to functional component.
+  state objects.
+  cache the expensive re reder using memoize function.
+  useCallback--->works just like React.memo with difference that it is used to memoize function declaration.
+  Web worker for multi threading in UI.
   13. What are keys in React?
+  Ans).A “key” is a special string attribute you need to include when creating lists of elements in React.
+  Keys are used to React to identify which items in the list are changed, updated, or deleted.
+  In other words, we can say that keys are used to give an identity to the elements in the lists.
+  It is recommended to use a string as a key that uniquely identifies the items in the list.
+  Assigning indexes as keys are highly discouraged because if the elements of the arrays get reordered in the future,
+   then it will get confusing for the developer as the keys for the elements will also change.
   14. How to pass data between react components?
+  Ans).From Parent to child using prop --> we can use useState to manage state
+  From child to parent--> with the help of callback
+  Between siblings:context api/redux
   15. What are Higher Order Components?
+  Ans).Higher order component is a function , that takes a component and returns a new component.
+  Like We can cerate search component , In that search component we can pass product component to search for product,
+  and similarly we can pass user component to search for user.
   16. What is prop drilling in React?
+  Ans).Prop drilling is basically a situation when the same data is being sent at almost every level due to requirements in the final level.
+  React context will help to avoid pro drilling.Providers and consumers have to be provided.
   17. What are error boundaries?
+  Ans).
   18).What is an event in React?How you create an event in React?
   19).Why is there a need for using keys in Lists?
   20).What is the use of render() in React?
+  And).ReactDOM.render is used to render component in DOM,it takes two argument .Where to populate and what has to be poulated.
+  render is used in class component.
+  class Welcome extends React.Component {
+    render() {
+      return <h1>Hello, {this.props.name}</h1>;
+    }
+  }
   21).what is redux?
+  Ans).It's state management tool for react.
   22).components of redux?
-  23).What is a higher order component?
+  Ans).store,reducer,action and middleware.
   24).What is PureComponent? When to use PureComponent over Component?
+  Ans).If we extend a class with Pure Component, there is no need for shouldComponentUpdate() Lifecycle Method.
+  ReactJS Pure Component Class compares current state and props with new props and states to decide whether the React component
+  should re-render itself or  Not.It does a shallow comparison.
   25).What is controlled and uncontrolled component?
+  Controlled:Notifies changes through callbacks
+  Uncontrolled:stores its state internally ,we have to query using ref to get its current value.
   26).How Virtual-DOM is more efficient than Dirty checking?
+  In React, each of our components have a state. This state is like an observable.
+  Essentially, React knows when to re-render the scene because it is able to observe when this data changes.
+  Dirty checking is slower than observables because we must poll the data at a regular interval and
+  check all of the values in the data structure recursively.
   27).Is setState() is async? Why is setState() in React Async instead of Sync?
+  setState actions are asynchronous and are batched for performance gains. his is because setState alters the state
+   and causes rerendering.This can be an expensive operation and making it synchronous might leave the browser unresponsive
   28).Explain the components of Redux.
+  Ans).store,action,reducer,middleware
   29).What is React.cloneElement? And the difference with this.props.children?
+  Ans).React.CloneElement when we want to add or modify props of its child.Creates a clone of given element,and we can
+  also pass props and children in function.
   30).create refs?
+  Ans).its uncontrolled component,stores the state internally.useRef hooks to use this.
   31).prop drilling? and how you can avoid it?
+  Ans).avoid using useContext hook.
   32).What is the difference between ShadowDOM and VirtualDOM?
+  Ans).Re-render always degrade the performance of app.so to avoid that concept of virtual DOM came to picture.
+  Its about only changing what has changed , using dif algorithm.
+  ShadowDOM creates small pieces of DOM object.
   33).List of hooks and their examples?
   34).convert below code to react hooks:
   componentDidMount() {
     window.addEventListener("mousemove", this.handleMousePosition);
   }
+    Ans).
+    useEffect(() => {
+      // Your code here
+    }, []);
 
   componentWillUnmount() {
     window.removeEventListener("mousemove", this.handleMousePosition);
   }
+
+  ans).
+  useEffect(() => {
+    // componentWillUnmount
+    return () => {
+       // Your code here
+    }
+  }, [yourDependency]);
+
+    ComponentDidUpdate
+    ____________________
+    useEffect(() => {
+      // Your code here
+    }, [yourDependency]);
+
   35).useReducer hook?
+  Ans).used for complex state manipulations and state transiitons.This hook returns array with two values.state and dispatch.
   36).make input box and when you complete writing make its color yellow?
+  keep state,change state when focus from text box changes.
   37).useCallback,useMemo?
+  Ans).useMemo return memoized value,when the function has to be memoized then we use useCallback.
+  Always profile before using useCallback,check the time improved.
   38).context api and how it solves prop drilling?
   39).custom hooks how to build?useDebug hooks?
+  Ans).It's more of design thing,we can move the logic between one common function. and reuse that function every places.
+  40).react.children and react.clonelement in react?
+  Ans).Suppose <Checkbox> component is there and after that child components are there <label><input type="checkbox">
+  now you want to add pass data between these then react.children,best way is to use react.children and react.clone element.
+  41).How do u share same state between two components in react?
+  Ans).Different scenario for diff use case:
+  Parent to Child
+  __________________
+  Props
+  Instance Methods
+
+  Child to parent
+  ___________________
+  1).callback function
+  2).Event bubbling
+
+  Sibling to sibling
+  ___________________
+  1).parent component
+
+  Any to Any
+  __________________
+  1).Obeserver pattern
+  2).Global variables
+  3).context
+
+    somethig like use-between hook can be used,redux can be used.
+
+  42).Create Compound components ?
+  Ans).To avoid prop drilling ,compound components are used..UseContext API is good example of this.
+  43).Context API with compound components?
+  ANS).
+  44).React.fragment and <> diff?
+  Ans).<> doesnot accept key attribute.
+  45)json.stringify?
+  Ans).1).for deep clone of object.
+  2).when sending data to web server,we need to send data in string format.
+  3).Convert a JavaScript object into a string with JSON.stringify()
+  46).convert first letter to upper case for given string?
+  Ans).x.charAt(0).toUpperCase()+x.slice(1);
+  47).es6 new things?
+  Ans).arrows,classes,template string,destructuring,default,rest,spread,let,const,iterators,for,of,generators,
+  unicode,modules,map,set,weakset,weakmap,promises,reflect,proxies.
+  https://github.com/lukehoban/es6features
+  48).array and object destructuring?
+  Ans).let [x,...rest]=[1,2,3];
+  let {x,y}={1,2,3}
+  49).Higher order components in react?
+  50).What happens if we dont pass any argument to useEffect?if we pass empty argument to useEffect?
+  51).order of lifecycle in react?
+  52).JEST FRAMEWORK for testing
+  53)scss
+  54).nullish coleasing operator ?
+  55).Optimization in react?
+  56).One way binding and two way data binding in difference in react?
+
 
 
   Node interview Questions
 
-  1).First class function in javascript?
+  1).First class function in javascript? //if the function in that language are treated like variables.
+  Ans).they can be assigned to variables.
+  They can be assigned as arguments to functions.
+  They can be returned from functions.
   2).What are some commonly used timing features of Node.js?
+  Ans).setTimeOut(callback,delay),setImmediate(callback,delay)->will be executed once after fixed time.
+  setImmediate(callback,delay)->will be the first one to execute in timer function.
+  SetInterval ->Used to execute after current event loop
+  console.log > setImmediate > setTimeout > setInterval
+  1).setTimeout (schedule code execution after designated amount of milli seconds)./clearTimeout
+  2).setImmediate // to remove setTimeout(func(){},0)/clearImmediate
+  3).setInterval/clearInterval
+  (print hello world each second, after 5 sec it should exit)
   3).What is an event-loop in Node JS?
-  4).Event loop different phases?
-  5).Differentiate between process.nextTick() and setImmediate()?
-  6).How does Node.js overcome the problem of blocking of I/O operations?
+  Ans).nodejs single threaded ,but still perform non blocking I/O operations.This thread management and complexities is handled
+  by well written API.This is where event loops comes into picture.It can perform blocking operation into non-blocking way
+  due to offloading.It offloads operations to system kernel whenever possible.
+  4).Event loop different phases?(very imp):
+  Timers:This phase executes callbacks scheduled by setTimeout and setInterval.
+  It is the minimum time node js will wait before executing callback.
+  Pending Callbacks:executes I/O callbacks that were deferred to the next loop iteration.
+  Some system operation want to wait before executing a callback,this phase is used for that.
+  Poll:calculate how long to poll for I/O.then process the events in poll queue.
+  Check:Used to execute setImmediate.If the poll phase is empty/setImmediate is therw then event loop might skip the poll phase
+  and continue to check phase.
+  close callbacks:methods such as socket.destroy are handled here.
+  process.nextTick,callback,poll,setImmediate,
+  5).Differentiate between process.nextTick() and setImmediate()?//bith adds to queue,but process.nextTick will cause I/o starvation
+  6).How does Node.js overcome the problem of blocking of I/O operations?--using eventloops
   7).What is node.js streams and buffers?
+  Stream is sequence of bytes read or written to ,while a buffer is sequence of bytes that is stored.
   8).What is middleware?
+  Ans).These are functions that have access to the request object,the response object and the next middleware function in request
+  response cycle.
   9).Enhancing Node.js performance through clustering.
+  Ans).The Node. js Cluster module enables the creation of child processes (workers) that run simultaneously and
+  share the same server port. Each spawned child has its own event loop, memory, and V8 instance. The child processes use
+   IPC (Inter-process communication) to communicate with the parent Node.
+   Performing the CPU-intensive synchronous tasks in worker threads
+   and delegating only the I/O-intensive asynchronous tasks to the event-loop
+   can dramatically improve the performance of our Node.js applications.
   10). What is a thread pool and which library handles it in Node.js
+  Ans).Worker pool is implemented in libuv .It is used to handle expensive tasks.
+  I/O intensive tasks make use of libuv ->like File System.
+  CPU INTENSIVE tasks also make use of worker pool , crypto.
   11).How are worker threads different from clusters?
-  12).How to measure the duration of async operations?
+  Ans).This is nothing but process based vs Thread based.
+  cluster:one process is launched on each cpu and can communicate using IPC.
+  Each process has its own memory , with its own Node(v8) instance.Should not create too many of them.
+  Great for spawning many HTTP servers that share the same port,main process will multiplex the the requests to chil process.
+  Worker Threads:
+  ________________
+  One process total,create many threads each having one Node instance.
+  Each thread has one node instance and one JS engine.Most node apis are available to each thread.
+  Shared memory with other threads(e.g:SharedArrayBuffer)
+  Great for CPU intensive tasks like data processing or accessing the file system.
+  12).How to measure the duration of async operations?//using async await
+  Ans). You could simply store Date.now() in some variable and then check Date.now() when your Promise resolves (or rejects)
+  and subtract to find the difference.
   13).global objects in nodejs ??__dir
+  Ans).Node js global objects are global in nature and they are available in all modules.
+  We dont need to include these objects,rather than we can use them directly. __filename,__dirname,setTimeOut,clearTimeout
+  14).Node Performance and optimization?
+  Ans).Use latest node js updates
+  Load balancing
+  Memory optimization
+  CPU profiling
+  nodejs timers to schedule tasks.
+  remove unused lines of code.
+  avoiding global variables.
+  clustering module should be used to handle requests.
+
 
