@@ -763,3 +763,25 @@ async function sequentialCall() {
   console.log('finish');
 }
 sequentialCall();
+
+var a=10;
+function b(){
+    a+=1;
+    function a(){}
+    return ;
+}
+b();
+
+var a=10;
+function b(){
+    a+=1;
+    function a(){}
+    return a+this.a;
+}
+b();
+
+Q).show no of duplicates in json and what are those jsons in react.
+q).forward ref and backward ref
+q)access outer variable inside inner function using this.
+q).what happens if super is not there in class component.
+
