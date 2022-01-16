@@ -1,0 +1,329 @@
+//Sites for preparation
+/*https://dev.to/devabhijeet/all-front-end-interview-questions-asked-during-my-recent-job-hunt-1kge*/
+
+//1).create a simple functional component with jsx in it
+import React,{useState,useRef,useEffect} from 'react';
+
+function Component1(){
+//react fragment helps in adding multiple elements to react component without
+//wrapping them in extra DOM node.
+//jsx is short way to call React.CreateElement
+    const callme = ()=>{
+    }
+    return(
+        <React.Fragment>
+            <button onClick={callme}>Call Me</button>
+        </React.Fragment>
+    )
+}
+
+//2).class component example
+
+class component2 extends React.Component{
+    constructor() {
+        super();
+        this.state={
+            count:0
+        }
+        this.increase=this.increase.bind(this)
+    }
+    increase(){
+        this.setState(this.state.count+1)
+    }
+    render(){
+        //it displays html code inside specified HTML element.
+        return (
+            <h1>hello</h1>
+        )
+    }
+}
+
+//3).create on controlled and uncontrolled component`
+//controlled component
+function comp2() {
+    const [fname,setFname] =useState("")
+    const firstName = (event) => {
+        setFname(event.target.value)
+    }
+    return(
+        <React.Fragment>
+            <input type="text" onChange={firstName}/>
+        </React.Fragment>
+    )
+}
+
+//uncontrolled component
+function buttonCLick(){
+    const countRef=useRef(0);
+    const callMe = ()=>{
+        countRef.current+=1
+        console.log(`button is clicked ${countRef.current} times`)
+    }
+    console.log("I am called")
+    return (
+        <React.Fragment>
+            <button type="button" onClick={callMe}>ClickMe</button>
+        </React.Fragment>
+    )
+}
+
+//difference between references and state
+//updating reference doesnot cause re-rendering,while updating the state cause component rerender.
+//useRef is synchrounus i.e gets updated immediately.
+//useState is asynchronous ,meaning it gets updated after rerendering.
+
+//4).Implement lifecycle methods in react.
+//component did mount
+useEffect(()=>{
+    console.log("called after initial mount")
+},[])//called only after initial render
+
+//component will unmount
+useEffect(()=>{
+    return ()=>{
+        console.log("component going to unmount")
+    }
+},[])
+
+//componentDidUpdate
+useEffect(()=>{
+    console.log("component did update.")
+},[counter])
+
+//5).create state and props in react
+function propExample(){
+        return (
+                <Image val="http://xyz.com"/>
+            )
+    
+}
+
+function Image(props) {
+        return(
+                <img src={props.val}/>
+            )
+}
+export default Image //it can be imported by any name.
+
+//6).Explain all hooks
+const [fname,setFname]=React.useState(0)
+
+React.useEffect(()=>{
+    console.log("Hello every one")
+}) //this will be called anytime the stateful data changes.
+
+React.useEffect(()=>{
+    console.log("Hello every one")
+},[])//when the component is initialized.
+
+React.useEffect(()=>{
+    console.log("when state changes ")
+},[count])//component did update.
+
+React.useEffect(()=>{
+    return ()=>{
+        console.log("unmounting tht component.")
+    }
+},[])
+
+//use context
+const ans={
+    right:true,
+    wrong:false
+}
+
+const AnsContext = createContext(ans)
+
+function Exam(props){
+    return(
+        <AnsContext.Provider value={ans.right}>
+            <RightAns/>
+        </AnsContext.Provider>
+    )
+}
+
+function RightAns(){
+    <AnsContext.consumer>
+        {
+            (val) => {
+                return (
+                    <p>You are {val}</p>
+                )
+            }
+        }
+    </AnsContext.consumer>
+}
+
+//useReducer
+function reducer(action,dispatch){
+    switch(action.type){
+        case 'increment':
+            return state+1
+        case 'decrement':
+            return state-1
+        default:
+            throw new Error()
+    }
+}
+
+function useReducer() {
+    const [state,dispatch]=React.useReducer(reducer,0)
+    return(
+        <>
+            Count:{state}
+            <button type="button" onClick={()=>{dispatch({type:'increment'})}}>+</button>
+            <button type="button" onClick={()=>{dispatch({type:'decrement'})}}>-</button>
+        </>
+    )
+}
+
+//useMemo
+function useMemo(){
+    const [count,setCount]=React.useState(0);
+    const expensiveCount = useMemo(()=>{
+        return count**2
+    },[count]) //recompute. when count changes.
+}
+
+function useCallbackDemo(){
+    const [count,setCount] = useState(20);
+    const showCount = React.useCallback(()=>{
+        console.log(`Count is ${count}`)
+    },[count])
+    return <button onClick={showCount} />
+}
+
+//Q)what are keys in react
+
+function populateData(data){
+    return(
+        <>
+                <ul>
+                {
+                    data.map((val,index)=> <li key = {index}>{val}</li>)
+                }
+                </ul>
+            </>
+    )
+}
+
+//Q).pass data between react components
+//from parent to child
+function Img(prop,sendDataToParent){
+    return (
+            <>
+                <img src={prop.val} onClick={sendDataToParent(500)}/>
+            </>
+        )
+}
+
+function passUsingProp(){
+    const sendDataToParent = (val)=>{
+
+    }
+
+    return (
+        <>
+            <Img val="x.jpg" sendDataToParent={sendDataToParent}/>
+        </>
+    )
+}
+
+//from child to parent pass like callback
+
+//Q).Higher order components are just like high order functions,takes component as argument and
+//transforms it.
+
+const HelloComponent = ({name,...otherProps})=>{
+    return (
+        <>
+            Hello {name}
+        </>
+    )
+}
+
+ const withNameOverride = (BaseComponent)=>{
+    return (props)=> {
+        return (
+            <>
+                <BaseComponent {...props} name="new Name"/>
+            </>
+        )
+    }
+ }
+
+const EnhancedHello1 = withNameOverride(HelloComponent);
+<EnhancedHello1 name='world' />
+
+//q).react clone element.
+const CreateTextWithProps = ({ text, ASCIIChar, ...props }) => {
+    return (
+        <span {...props}>
+            {text}{ASCIIChar}
+        </span>
+    )
+};
+const RepeatCharacters = ({ times, children }) => {
+    return React.cloneElement(children, {
+        // This will override the original ASCIIChar in the text.
+        text: children.props.text.repeat(times),
+    })
+};
+function App() {
+    return (
+        <div>
+            <RepeatCharacters times={3}>
+                <CreateTextWithProps
+                    text="Habdul Hazeez*3"
+                    ASCIIChar='.'
+                />
+            </RepeatCharacters>
+        </div>
+    )
+};
+​
+export default App
+
+//Q).create timer app?
+//https://upmostly.com/tutorials/build-a-react-timer-component-using-hooks
+function timer() {
+    const [second,setSecond] = useState(0);
+    const [isActive,setActive] = useState(false)
+    function toggle() {
+        setIsActive(!isActive);
+    }
+
+    function reset() {
+        setSeconds(0);
+        setIsActive(false);
+    }
+
+    useEffect(()=>{
+        let interval=null;
+        if(isActive){
+            interval=setInterval(()=>{
+                setSecond(second+1)
+            },1000)
+        }else if(!isActive && second!=0){ //for pause
+            clearInterval(second)
+        }
+    },[second,isActive])
+
+    return (
+        <React.Fragment>
+            <div className="time">
+                {second}s
+            </div>
+            <div>
+                <button type="button" className={isActive} onClick={toggle}>
+                    {isActive?"Pause":"Start"}
+                </button>
+                <button type="button" className="reset" onClick={reset}>
+                    Reset
+                </button>
+            </div>
+        </React.Fragment>
+    )
+}
+
+//Q)Implement your own prototype
